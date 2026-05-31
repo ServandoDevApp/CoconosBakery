@@ -1,0 +1,202 @@
+/* ============================================================
+   Coconos Bakery — sistema visual
+   Artesanal · cálido · cremas y beige con acentos tierra
+   ============================================================ */
+
+/* ---- Fonts ---- */
+/* Loaded via <link> in HTML: Cormorant Garamond, Hanken Grotesk, Caveat, Bricolage Grotesque */
+
+:root {
+  /* Base palette — "Mantequilla" (default) */
+  --cream:      oklch(0.972 0.013 80);
+  --cream-2:    oklch(0.945 0.018 78);
+  --paper:      oklch(0.992 0.006 85);
+  --ink:        oklch(0.285 0.022 55);
+  --ink-soft:   oklch(0.44 0.025 55);
+  --ink-faint:  oklch(0.60 0.02 60);
+  --accent:     oklch(0.625 0.108 55);   /* caramelo */
+  --accent-2:   oklch(0.50 0.095 45);    /* cacao tostado */
+  --accent-ink: oklch(0.36 0.07 50);
+  --line:       oklch(0.86 0.018 78);
+  --line-soft:  oklch(0.90 0.014 80);
+
+  /* Fonts */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Hanken Grotesk", system-ui, sans-serif;
+  --font-script:  "Caveat", cursive;
+
+  --display-weight: 600;
+  --display-spacing: -0.01em;
+
+  /* Geometry */
+  --radius: 14px;
+  --radius-lg: 22px;
+  --maxw: 1240px;
+  --gutter: clamp(20px, 5vw, 72px);
+}
+
+/* ---- Direction: Cacao (deeper, chunkier, rustic) ---- */
+[data-theme="cacao"] {
+  --cream:      oklch(0.945 0.022 70);
+  --cream-2:    oklch(0.905 0.03 68);
+  --paper:      oklch(0.975 0.014 75);
+  --ink:        oklch(0.255 0.03 45);
+  --ink-soft:   oklch(0.40 0.035 48);
+  --ink-faint:  oklch(0.56 0.03 55);
+  --accent:     oklch(0.575 0.13 48);    /* terracota */
+  --accent-2:   oklch(0.44 0.1 40);
+  --accent-ink: oklch(0.33 0.08 45);
+  --line:       oklch(0.83 0.028 68);
+  --line-soft:  oklch(0.88 0.022 70);
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --display-weight: 600;
+  --display-spacing: -0.025em;
+}
+
+/* ---- Direction: Lino (light, airy, editorial sans) ---- */
+[data-theme="lino"] {
+  --cream:      oklch(0.985 0.006 90);
+  --cream-2:    oklch(0.962 0.01 88);
+  --paper:      oklch(1 0 0);
+  --ink:        oklch(0.30 0.012 70);
+  --ink-soft:   oklch(0.47 0.014 70);
+  --ink-faint:  oklch(0.64 0.012 75);
+  --accent:     oklch(0.60 0.075 60);    /* arcilla suave */
+  --accent-2:   oklch(0.48 0.06 55);
+  --accent-ink: oklch(0.40 0.05 58);
+  --line:       oklch(0.90 0.008 85);
+  --line-soft:  oklch(0.94 0.006 88);
+  --font-display: "Hanken Grotesk", system-ui, sans-serif;
+  --display-weight: 700;
+  --display-spacing: -0.03em;
+  --radius: 8px;
+  --radius-lg: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* subtle paper texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(oklch(0.5 0.05 55 / 0.025) 0.7px, transparent 0.7px),
+    radial-gradient(oklch(0.5 0.05 55 / 0.02) 0.7px, transparent 0.7px);
+  background-size: 9px 9px, 9px 9px;
+  background-position: 0 0, 4.5px 4.5px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-spacing);
+  line-height: 1.04;
+  margin: 0;
+  color: var(--ink);
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: inherit; text-decoration: none; }
+
+img { display: block; max-width: 100%; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+/* eyebrow / script label */
+.eyebrow {
+  font-family: var(--font-script);
+  font-size: 1.5rem;
+  color: var(--accent);
+  line-height: 1;
+  display: inline-block;
+}
+
+.kicker {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 999px;
+  padding: 0.85em 1.6em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  transition: transform 0.18s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  text-align: center;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--cream);
+  box-shadow: 0 6px 18px -8px var(--accent-2);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -10px var(--accent-2); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-ink); transform: translateY(-2px); }
+
+/* ---- Image slot styling ---- */
+image-slot {
+  --slot-bg: var(--cream-2);
+  background: var(--cream-2);
+}
+
+/* section rhythm */
+.section { padding-block: clamp(64px, 9vw, 132px); position: relative; z-index: 1; }
+.section-tight { padding-block: clamp(44px, 6vw, 80px); }
+
+.section-head { max-width: 640px; }
+.section-head .eyebrow { margin-bottom: 6px; }
+.section-head h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 14px; }
+.section-head p { color: var(--ink-soft); font-size: 1.06rem; }
+
+.center { text-align: center; margin-inline: auto; }
+
+/* divider with wheat dot */
+.rule {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  color: var(--accent); margin: 0 auto;
+}
+.rule::before, .rule::after {
+  content: ""; height: 1px; width: min(90px, 18vw); background: var(--line);
+}
+.rule span { font-size: 1.1rem; }
