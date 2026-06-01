@@ -229,9 +229,8 @@ function Gallery({ t }) {
         <Slot id="gal-2"                   radius={14} src="galeria_3.jpg" placeholder="Foto" />
         <Slot id="gal-3" className="tall"  radius={14} src="galeria_4.jpg" placeholder="Foto vertical" />
         <Slot id="gal-4" className="wide"  radius={14} src="galeria_5.jpg" placeholder="Foto panorámica" />
-        <Slot id="gal-5"                   radius={14} src="galeria_6.jpg" placeholder="Foto" />
-        <Slot id="gal-6"                   radius={14} src="galeria_7.jpg" placeholder="Foto" />
-        <Slot id="gal-7"                   radius={14} src="galeria_8.jpg" placeholder="Foto" />
+        <Slot id="gal-5" className="wide"  radius={14} src="galeria_6.jpg" placeholder="Foto" />
+        <Slot id="gal-6" className="wide"  radius={14} src="galeria_7.jpg" placeholder="Foto" />
       </div>
     </section>
   );

@@ -86,7 +86,7 @@
   gap: 12px;
   cursor: pointer;
 }
-.brand image-slot { width: 42px; height: 42px; flex: none; }
+.brand image-slot, .brand .slot-wrap { width: 42px; height: 42px; flex: none; border-radius: 50%; overflow: hidden; }
 .brand .brand-type {
   display: flex;
   flex-direction: column;
@@ -146,7 +146,6 @@
 }
 @media (max-width: 560px) {
   .nav-cta { display: none; }
-  .brand .brand-sub { display: none; }
 }
 
 /* ---------- Hero ---------- */
