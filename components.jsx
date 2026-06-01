@@ -3,15 +3,24 @@
    ============================================================ */
 const { useState, useEffect, useRef } = React;
 
-// Slot de imagen reutilizable (web component <image-slot>)
-function Slot(props) {
+// Slot de imagen — muestra img real si tiene src, si no el web component drag-drop
+function Slot({ id, src, shape, radius, placeholder, style, className }) {
+  const r = radius != null ? String(radius) : "14";
+  if (src) {
+    const borderRadius = shape === "circle" ? "50%" : r + "px";
+    return (
+      <div className={"slot-wrap" + (className ? " " + className : "")} style={{ borderRadius, overflow: "hidden", ...style }}>
+        <img src={src} alt={placeholder} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+      </div>
+    );
+  }
   return React.createElement("image-slot", {
-    id: props.id,
-    shape: props.shape || "rounded",
-    radius: props.radius != null ? String(props.radius) : "14",
-    placeholder: props.placeholder || "Arrastra una foto",
-    style: props.style,
-    class: props.className,
+    id: id,
+    shape: shape || "rounded",
+    radius: r,
+    placeholder: placeholder || "Arrastra una foto",
+    style: style,
+    class: "slot-wrap" + (className ? " " + className : ""),
   });
 }
 
@@ -102,7 +111,7 @@ function Hero({ t }) {
           </div>
         </div>
         <div className="hero-art">
-          <Slot id="hero" radius={22} placeholder="Foto principal — vitrina o producto estrella" />
+          <Slot id="hero" src="banner.png" radius={22} placeholder="Foto principal — vitrina o producto estrella" />
           <div className="badge">
             <span className="seal">✸</span>
             <span className="seal-txt">
@@ -151,15 +160,15 @@ function Menu({ t, lang }) {
       </div>
       {shown.map((c) => (
         <div className="cat-block" key={c.id} id={"cat-" + c.id}>
-          <div className="cat-title reveal">
+          <div className="cat-title">
             <span className="eyebrow">{c[lang].note}</span>
             <h3>{c[lang].name}</h3>
             <span className="count">{t.menu.count(c.items.length)}</span>
           </div>
           <div className="grid-products">
             {c.items.map((it) => (
-              <article className="product reveal" key={it.id}>
-                <Slot id={"p-" + it.id} radius={14} placeholder={lang === "es" ? it.name : it.en} />
+              <article className="product" key={it.id}>
+                <Slot id={"p-" + it.id} src={it.img} radius={14} placeholder={lang === "es" ? it.name : it.en} />
                 <div className="product-row">
                   <h4>{lang === "es" ? it.name : it.en}</h4>
                   {it.star && <span className="tag">★</span>}
@@ -257,8 +266,20 @@ function Locations({ t, lang }) {
 
 /* ---------------- Wholesale + form ---------------- */
 function Wholesale({ t }) {
-  const open = () => window.open(window.GOOGLE_FORM, "_blank", "noopener");
-  const submit = (e) => { e.preventDefault(); open(); };
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [subject, setSubject] = React.useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+    const base = "https://docs.google.com/forms/d/e/1FAIpQLSc2kYIWd9Wp9rMYk-pato8DYF1L1fC0EYdxwD5koKk4N1KtfA/viewform";
+    const params = new URLSearchParams({
+      "entry.1371906752": name,
+      "entry.329552569": phone,
+      "entry.366505263": subject,
+    });
+    window.open(base + "?" + params.toString(), "_blank", "noopener");
+  };
   return (
     <section className="section wholesale" id="wholesale">
       <div className="wrap wholesale-grid">
@@ -279,15 +300,15 @@ function Wholesale({ t }) {
           <form onSubmit={submit}>
             <div className="field">
               <label>{t.wholesale.fName}</label>
-              <input type="text" placeholder={t.wholesale.fNamePh} />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.wholesale.fNamePh} required />
             </div>
             <div className="field">
               <label>{t.wholesale.fPhone}</label>
-              <input type="tel" placeholder={t.wholesale.fPhonePh} />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.wholesale.fPhonePh} required />
             </div>
             <div className="field">
               <label>{t.wholesale.fSubject}</label>
-              <textarea placeholder={t.wholesale.fSubjectPh}></textarea>
+              <textarea value={subject} onChange={(e) => setSubject(e.target.value)} placeholder={t.wholesale.fSubjectPh} required></textarea>
             </div>
             <button type="submit" className="btn btn-primary">{t.wholesale.submit} →</button>
             <p className="form-note">{t.wholesale.note}</p>
