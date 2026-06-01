@@ -62,7 +62,7 @@ function Nav({ t, lang, setLang }) {
     <header className={"nav" + (scrolled ? " scrolled" : "")}>
       <div className="nav-inner">
         <a className="brand" href="#top">
-          <Slot id="logo" shape="circle" placeholder="Logo" radius={999} />
+          <Slot id="logo" src="logo.png" shape="circle" placeholder="Logo" radius={999} />
           <span className="brand-type">
             <span className="brand-name">Coconos</span>
             <span className="brand-sub">Bakery</span>
@@ -189,9 +189,9 @@ function About({ t }) {
     <section className="section wrap" id="about">
       <div className="about-grid">
         <div className="about-art reveal">
-          <Slot id="about-1" radius={18} placeholder="Manos amasando" />
-          <Slot id="about-2" radius={18} placeholder="Horno" />
-          <Slot id="about-3" radius={18} placeholder="Detalle" />
+          <Slot id="about-1" src="about_1.jpg" radius={18} placeholder="Manos amasando" />
+          <Slot id="about-2" src="about_2.jpg" radius={18} placeholder="Horno" />
+          <Slot id="about-3" src="about_3.jpg" radius={18} placeholder="Detalle" />
         </div>
         <div className="about-copy reveal">
           <span className="eyebrow">{t.about.eyebrow}</span>
@@ -224,9 +224,14 @@ function Gallery({ t }) {
         <p>{t.gallery.sub}</p>
       </div>
       <div className="gallery-grid reveal">
-        {layout.map((cls, i) => (
-          <Slot key={i} id={"gal-" + i} className={cls} radius={14} placeholder="Foto" />
-        ))}
+        <Slot id="gal-0" className="tall"  radius={14} src="galeria_1.jpg" placeholder="Foto vertical" />
+        <Slot id="gal-1"                   radius={14} src="galeria_2.jpg" placeholder="Foto" />
+        <Slot id="gal-2"                   radius={14} src="galeria_3.jpg" placeholder="Foto" />
+        <Slot id="gal-3" className="tall"  radius={14} src="galeria_4.jpg" placeholder="Foto vertical" />
+        <Slot id="gal-4" className="wide"  radius={14} src="galeria_5.jpg" placeholder="Foto panorámica" />
+        <Slot id="gal-5"                   radius={14} src="galeria_6.jpg" placeholder="Foto" />
+        <Slot id="gal-6"                   radius={14} src="galeria_7.jpg" placeholder="Foto" />
+        <Slot id="gal-7"                   radius={14} src="galeria_8.jpg" placeholder="Foto" />
       </div>
     </section>
   );
@@ -235,6 +240,7 @@ function Gallery({ t }) {
 /* ---------------- Locations ---------------- */
 function Locations({ t, lang }) {
   const locs = window.LOCATIONS;
+  const locImgs = ["sucursal_sannicolas.jpg", "sucursal_revolucion.jpg"];
   return (
     <section className="section section-tight wrap" id="locations">
       <div className="section-head center reveal">
@@ -243,9 +249,9 @@ function Locations({ t, lang }) {
         <p>{t.locations.sub}</p>
       </div>
       <div className="loc-grid">
-        {locs.map((l) => (
+        {locs.map((l, i) => (
           <article className="loc-card reveal" key={l.id}>
-            <Slot id={"loc-" + l.id} radius={16} placeholder={t.locations.photoPh} />
+            <Slot id={"loc-" + l.id} src={locImgs[i]} radius={16} placeholder={t.locations.photoPh} />
             <div className="loc-body">
               <span className="loc-pin">◆ {l.area[lang]}</span>
               <h3>{l.name}</h3>
